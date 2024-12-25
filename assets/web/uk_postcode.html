@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" type="text/css" href="http://api.addressnow.co.uk/css/addressnow-2.20.min.css?key=tx12-yy85-mb16-yu94" />
+        <script type="text/javascript" src="http://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=tx12-yy85-mb16-yu94"></script>
+        <script type="text/javascript">
+            addressNow.listen('load', function(control) {
+                control.listen("populate", function (address) {
+                    document.getElementById("address").value = address.PostalCode;
+                    const currentAddress = JSON.stringify(address);
+                    console.log("full address:" + currentAddress);
+                    // Send the address back to Flutter
+                    window.parent.postMessage(currentAddress, '*');
+                });
+            });
+        </script>
+        <style>
+            /* Ensure the body takes full height and width */
+            body {
+                margin: 0;
+                padding: 0;
+                height: 50%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #f5f5f5; /* Optional: Set a background color */
+            }
+
+            /* Style the input field */
+            input[type="text"] {
+                width: 80%; /* Make the input field responsive */
+                max-width: 400px; /* Set a maximum width */
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+        </style>
+    </head>
+    <body>
+      <form> 
+      <input 
+      id="address"
+      type="text"
+      placeholder="Enter your postcode"
+      maxlength="100"
+      />
+    </form> 
+    </body>
+</html>
